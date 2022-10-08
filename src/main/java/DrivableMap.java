@@ -45,11 +45,28 @@ class DrivableMap {
      * iterate through drivable_map.
      */
     public boolean hasFasterThan (int speed) {
-        ArrayList set_of_values = (ArrayList) drivable_map.values();
+//        ArrayList set_of_values = new ArrayList(drivable_map.values());
+//        // Need: Access value of key, use the getMaxSpeed method.
+//        for (int i = 0; i < set_of_values.size(); i++) {
+//            int curr_value =  drivable_map.get(set_of_values.get(i)).getMaxSpeed();
+//            if ( curr_value >= speed) {
+//                return true;
+//            }
+//        }
+//        return false;
 
-        for (int i = 0; i <= set_of_values.size(); i++) {
-            int curr_value = (int) set_of_values.get(i);
-            if ( curr_value >= speed) {
+        //new idea: create one for loop to get a list of speeds.
+        // create a new for loop so it iterates thru the list of speeds and then compares.
+        ArrayList speeds_so_far = new ArrayList();
+        ArrayList set_of_keys = new ArrayList(drivable_map.keySet());
+
+        for (int i = 0; i < drivable_map.size(); i++) {
+            int current_speed = drivable_map.get(set_of_keys.get(i)).getMaxSpeed();
+            speeds_so_far.add(current_speed);
+        }
+
+        for (int i = 0; i < speeds_so_far.size(); i++) {
+            if ((int) speeds_so_far.get(i) >= speed) {
                 return true;
             }
         }
@@ -64,8 +81,8 @@ class DrivableMap {
      */
 
     public List getTradable() {
-        List list_so_far = null;
-        ArrayList list_of_keys = (ArrayList) drivable_map.keySet();
+        ArrayList list_so_far = new ArrayList();
+        ArrayList list_of_keys = new ArrayList(drivable_map.keySet());
         ArrayList list_of_values = new ArrayList(drivable_map.values());
 
         /* Since it seems like I can't do ((ArrayList) list_of_keys)[i], I will just
