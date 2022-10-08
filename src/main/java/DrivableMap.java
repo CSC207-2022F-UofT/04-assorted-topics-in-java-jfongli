@@ -7,6 +7,7 @@
  * created the constructor for you already.
  */
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,13 @@ class DrivableMap {
      *       in drivable_map, then add the pair to drivable_map.
      *       Return true if the Drivable was added to drivable_map.
      */
-
+    public boolean addDrivable (String id, Drivable object) {
+        if (! this.drivable_map.containsKey(id)) {
+                this.drivable_map.put(id, object);
+                return true;
+        }
+        return false;
+    }
 
 
 
@@ -37,8 +44,17 @@ class DrivableMap {
      * You may want to use drivable_map.keys() or drivable_map.values() to
      * iterate through drivable_map.
      */
+    public boolean hasFasterThan (int speed) {
+        ArrayList set_of_values = (ArrayList) drivable_map.values();
 
-
+        for (int i = 0; i <= set_of_values.size(); i++) {
+            int curr_value = (int) set_of_values.get(i);
+            if ( curr_value >= speed) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 
@@ -46,6 +62,23 @@ class DrivableMap {
      *       returns a List containing all of the Tradable items in
      *       drivable_map.
      */
+
+    public List getTradable() {
+        List list_so_far = null;
+        ArrayList list_of_keys = (ArrayList) drivable_map.keySet();
+        ArrayList list_of_values = new ArrayList(drivable_map.values());
+
+        /* Since it seems like I can't do ((ArrayList) list_of_keys)[i], I will just
+        do the if check with a list of values
+        I can also can't do list_of_values[i]. Why am I unable to do this?
+         */
+        for (int i = 0; i < list_of_keys.size(); i++) {
+            if (list_of_values.get(i) instanceof Tradable) {
+                list_so_far.add(list_of_values.get(i));
+            }
+        }
+        return list_so_far;
+    }
 
 
 
